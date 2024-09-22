@@ -1,0 +1,164 @@
+<!-- SIDEBAR -->
+<div id="column-left" class="col-sm-3 hidden-xs column-left">
+
+
+  <!-- CATEGORIES MENU -->
+  <div class="Categories left-sidebar-widget">
+    <div class="columnblock-title">Top Categories</div>
+
+    <!-- Categories -->
+    <div class="category_block">
+      <ul class="box-category treeview">
+
+        <!-- Link -> All Products -->
+        <li><a href="/products" class="activSub">All Products</a></li>
+        
+        <!-- Link -> Category -->
+        <% categories.forEach(category => { %>
+          <li><a href="/products/<%= category.slug %>" class="activSub"><%= category.title %></a>
+            <!-- Subcategories -->
+            <!-- <ul>
+              <li><a href="#">Subcategory 1</a></li>
+              <li><a href="#" class="activSub">Subcategory 2</a>
+                <ul>
+                  <li><a href="#">test 1</a></li>
+                  <li><a href="#">test 2</a></li>
+                </ul>
+              </li>
+            </ul> -->
+          </li>
+        <% }); %>
+
+      </ul>
+    </div>
+    <!-- End of Categories -->
+
+  </div>
+  <!-- End of CATEGORIES MENU -->
+
+
+  <!-- REFINE SEARCH MENU -->
+  <% if(title !== 'Cart' && title !== 'Checkout' && title !== 'Successful Payment' && title !== 'Wishlist' && title !== 'Order History') { %>
+    <div class="filter left-sidebar-widget">
+      <div class="columnblock-title">Refine Search</div>
+      <!-- FORM -->
+      <form method="POST" action="/products">
+        <div class="filter-block">
+          <div class="list-group">
+
+            <!-- AVAILABILITY -->
+            <p class="list-group-item">Availability</p>
+            <div class="list-group-item">
+              <div id="filter-group1">
+                <label class="checkbox">
+                  <input name="?page=<%= currentPage %>&dir=<%= dir %>&order=<%= order %>&limit=<%= limit %>&price=<%= price %>" type="checkbox" value="?page=<%= currentPage %>&dir=<%= dir %>&order=<%= order %>&limit=<%= limit %>&stock=inStock&price=<%= price %>" onchange="if(this.checked) { window.location.href = this.value } else if(!this.checked) { window.location.href = this.name }" <% if(stock == 'inStock') { %> checked <% } %>>
+                  In Stock (<%= numItemsIn %>)
+                </label>
+                <label class="checkbox">
+                  <input name="?page=<%= currentPage %>&dir=<%= dir %>&order=<%= order %>&limit=<%= limit %>&price=<%= price %>" type="checkbox" value="?page=<%= currentPage %>&dir=<%= dir %>&order=<%= order %>&limit=<%= limit %>&stock=outOfStock&price=<%= price %>" onchange="if(this.checked) { window.location.href = this.value } else if(!this.checked) { window.location.href = this.name }" <% if(stock == 'outOfStock') { %> checked <% } %>>
+                  Out of Stock (<%= numItemsOut %>)
+                </label>
+              </div>
+            </div>
+            <br>
+
+            <!-- PRICE RANGE -->
+            <p class="list-group-item">Price</p>
+            <div class="list-group-item">
+              <div id="filter-group2">
+                <label class="checkbox">
+                  <input name="?page=<%= currentPage %>&dir=<%= dir %>&order=<%= order %>&limit=<%= limit %>&stock=<%= stock %>" type="checkbox" value="?page=<%= currentPage %>&dir=<%= dir %>&order=<%= order %>&limit=<%= limit %>&stock=<%= stock %>&price=low" onchange="if(this.checked) { window.location.href = this.value } else if(!this.checked) { window.location.href = this.name }" <% if(price == 'low') { %> checked <% } %>>
+                  $<%= min %>-$<%= med1 %> (<%= numItemsLow %>)
+                </label>
+                <label class="checkbox">
+                  <input name="?page=<%= currentPage %>&dir=<%= dir %>&order=<%= order %>&limit=<%= limit %>&stock=<%= stock %>" type="checkbox" value="?page=<%= currentPage %>&dir=<%= dir %>&order=<%= order %>&limit=<%= limit %>&stock=<%= stock %>&price=medium" onchange="if(this.checked) { window.location.href = this.value } else if(!this.checked) { window.location.href = this.name }" <% if(price == 'medium') { %> checked <% } %>>
+                  $<%= med1 %>-$<%= med2 %> (<%= numItemsMedium %>)
+                </label>
+                <label class="checkbox">
+                  <input name="?page=<%= currentPage %>&dir=<%= dir %>&order=<%= order %>&limit=<%= limit %>&stock=<%= stock %>" type="checkbox" value="?page=<%= currentPage %>&dir=<%= dir %>&order=<%= order %>&limit=<%= limit %>&stock=<%= stock %>&price=high" onchange="if(this.checked) { window.location.href = this.value } else if(!this.checked) { window.location.href = this.name }" <% if(price == 'high') { %> checked <% } %>>
+                  $<%= med2 %>-$<%= max %> (<%= numItemsHigh %>)
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- SUBMIT BUTTON -->
+          <!-- <div class="panel-footer">
+            <button type="button" id="button-filter" class="btn btn-primary">
+              Refine Search
+            </button>
+          </div> -->
+
+        </div>
+      </form>
+      <!-- End of FORM -->
+
+    </div>
+    <!-- End of REFINE SEARCH MENU -->
+
+
+    <!-- COMMERCIAL BANNER -->
+    <div class="banner left-sidebar-widget"> 
+        <% pages.forEach(page => {
+          if(page.firstSlug == 'shop') { %>
+            <a href="<%= page.subtitle1 %>">
+              <img src="/images/pages/<%= page.firstSlug %>/<%= page.image1 %>" alt="<%= page.image1 %>" class="img-responsive">
+            </a> 
+          <% }
+        }); %>
+    </div>
+    <!-- End of COMMERCIAL BANNER -->
+  <% } %>
+
+
+  <!-- SPECIAL PRODUCTS MENU -->
+  <div class="special left-sidebar-widget">
+    <div class="columnblock-title">Special Products</div>
+    <ul class="row ">
+
+      <!-- Special product -->
+      <% specialProds.forEach(product => { %>
+        <li class="product-layout">
+          <!-- Image -->
+          <div class="product-list col-xs-4">
+            <div class="product-thumb">
+              <div class="image product-imageblock">
+                <a href="/products/<%= product.category.slug %>/<%= product.slug %>">
+                  <img class="img-responsive" title="<%= product.title %>" alt="<%= product.image %>" src="/images/products/<%= product.firstSlug %>/<%= product.image %>">
+                  <img class="img-responsive" title="<%= product.title %>" alt="<%= product.image %>" src="/images/products/<%= product.firstSlug %>/<%= product.image %>">
+                </a>
+              </div>
+            </div>
+          </div>
+          <!-- Data -->
+          <div class="col-xs-8">
+            <div class="caption product-detail">
+              <h4 class="product-name">
+                <a title="<%= product.title %>" href="/products/<%= product.category.slug %>/<%= product.slug %>"><%= product.title %></a>
+              </h4>
+              <p class="price product-price"> 
+                <span class="price-new">$<%= parseFloat(product.price).toFixed(2) %></span> 
+                <span class="less">$<%= parseFloat(product.originalPrice).toFixed(2) %></span> 
+              </p>
+              <div class="addto-cart">
+                <% if(user) { %>
+                  <a href="/cart/add/<%= product.slug %>">Add to Cart</a>
+                  <!-- <a href="/cart/add/<%= product.slug %>?url=<%= title %>">Add to Cart</a> -->
+                <% } else { %>
+                  <a href="/cart/add/<%= product.slug %>" onclick="return confirm('Please log in, in order to be able to purchase this product!')">Add to Cart</a>
+                <% }; %>
+              </div>
+            </div>
+          </div>
+        </li>
+      <% }); %>
+      <!-- End of Special product -->
+
+    </ul>
+  </div>
+  <!-- End of SPECIAL PRODUCTS MENU -->
+
+
+</div>
+<!-- End of SIDEBAR -->
+
