@@ -39,7 +39,7 @@
     "nodemailer-sendgrid-transport": "^0.2.0",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
-    "pdfkit": "^0.10.0",
+    "pdfkit": "^0.16.0",
     "resize-img": "^1.1.2",
     "stripe": "^7.14.0"
   }
